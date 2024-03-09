@@ -24,6 +24,48 @@ The lab setup includes a simple GraphQL API managing user data, with operations 
 2. **User Enumeration**: By fetching all users, the script demonstrates how an attacker can enumerate user IDs and other data.
 3. **Unauthorized Update**: The script then updates Bob's name to "HACKED" using his user ID, simulating an IDOR attack where an unauthorized actor modifies user data.
 
+## PoC Step-by-Step Guide
+
+This guide details the steps involved in the Proof of Concept (PoC) to demonstrate the IDOR vulnerability. It includes an explanation of GraphQL queries and mutations, and how they are used within this PoC.
+
+### Understanding GraphQL Queries
+
+In GraphQL, a query is used to read or fetch values. It is the equivalent of a GET request in REST. A query must specify what fields are needed on the object being queried. For example, when fetching users, you can specify that you only need their `id`, `name`, and `age`.
+
+### Query Structure
+
+A typical GraphQL query to fetch all users might look like this:
+
+```graphql
+{
+  getAllUsers {
+    id
+    name
+    age
+  }
+}
+```
+This query fetches the id, name, and age of all users by invoking the getAllUsers field on the root query type.
+
+### Understanding GraphQL Mutations
+
+While queries are for fetching data, mutations change data. They are the equivalent of POST, PUT, PATCH, or DELETE in REST. A mutation must specify the operation name and the input parameters, as well as the fields that should be returned on the object that was affected by the mutation.
+
+### Mutation Structure
+For example, creating a new user with a mutation might look like this:
+
+```graphql
+mutation CreateUser($name: String!, $age: Int!) {
+  createUser(name: $name, age: $age) {
+    id
+    name
+    age
+  }
+}
+```
+This mutation creates a new user and requests the id, name, and age of the newly created user in the response.
+
+
 ### Protecting Against IDOR
 
 To protect against IDOR vulnerabilities, developers should:
