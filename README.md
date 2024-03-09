@@ -74,7 +74,5 @@ To protect against IDOR vulnerabilities, developers should:
 - Avoid exposing sensitive information, like user IDs, directly in APIs.
 - Consider using indirect references or UUIDs that are not easily guessable.
 
-## Conclusion
 
-The provided PoC and lab setup illustrate the importance of proper security measures in GraphQL APIs to prevent IDOR vulnerabilities. It highlights the need for robust access controls to protect user data and ensure that only authorized actions are performed.
 
